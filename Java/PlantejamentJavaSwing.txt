@@ -1,0 +1,21 @@
+login amb admin:
+admin ha de poder executar .jar
+jar ha de tenir:
+    Add empresa (una empresa te una direccio, aixi que abans d'afegir empresa ha de crear adreça i guardar-ne l'id)
+    llistar totes les empreses (php) i modificar la que es necessiti
+    esborrar una empresa aixo ho faria despres de premer modificar
+    esborrar una empresa que tingui tastos realitzats (i si en te de pendents?)
+        s'ha de guardar historic... es a dir:
+            eliminar
+            te tasts?
+                si -> segur que vols eliminar?
+                    si -> migracio taula cates a historic
+                    no -> res
+                no -> eliminar.
+    filtre order by identificador
+    select provincia and order
+    Veure tasts fets i valoracions mitjes de x empresa
+        select empreses
+            selects tasts
+                select valoracions
+        

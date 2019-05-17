@@ -1,0 +1,19 @@
+addEventListener{
+    en el moment que crei una adreça addEventListener de keyup
+    que vagi omplint una direccio readonly
+}
+
+mostrar ajudes de formulari i si may ta activat
+
+canviar style on focus
+
+contrasenya amb progress bar que mostri complexitat, nomes admet 100%
+
+onLogin/Register mostrar un checkbox si marca password visible
+
+guardar en webstorage user i pass (sense encriptar) i idioma by default en taula (per tots els users)
+
+us de classes 
+
+peticio ajax
+
