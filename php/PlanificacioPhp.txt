@@ -1,0 +1,45 @@
+Inici s'entra a pagina principal 
+    veu llistat de productes amb nom negoci i valoracio mitja
+    el nom de negocis faran que maps vagi a la localitzacio
+a dalt dreta Login/registre
+    Login/Registre:
+        2 formularis amb div a sobre (empresa/client) onhover desapareix
+        
+        Login as empresa:
+            Apartat organitza cata (especificar dia hora (datapicker (? ) i producte(llista dels seus))
+            Apartat nostres cates (possibilitat de modificar una, modificar data (ecs) s'avisa a clients by mail)
+                Selecciona cata:
+                    Si la data ja ha passat:
+                        veuran capçalera cata cos clients que tan registrats i marcar si han assistit o no
+                            SI marca que un client ha assistit
+                                Al client li apareix per votar
+                            Si marca que un client no ha assistit
+                                El client no pot votar
+                            Si no marca res es queda en pendent de assignar
+                    SI la data no ha passat:
+                        vauran capçalera cata cos clients que tan registrats
+        Login as client:
+            Veu llistat cates obertes
+                    
+        
+        
+            Apartat veure cates (veuen les cates disponibles i poden apuntar)
+            Si obra un cata:
+                SI estava registrat:
+                    Si la data ja ha passat:
+                        Preguntar, has assistit a la cata?
+                            si -> pot valorar
+                            no -> No pot valorar
+                    Si la data no ha passat:
+                        Preguntar, et vols desapuntar de la cata?
+                            si -> s'elimina registre
+                            no -> torna enrrere
+                Si no estava registrat:
+                    SI la data no ha passat:
+                        Preguntar, et vols registrar per aquesta cata?
+                            si -> es crea registre
+                            no -> torna enrrere
+                    Si la data ja ha passat no apareix
+
+            Apartat seves cates (veuen les cates on estan registrats i es poden desapuntar)
+            
