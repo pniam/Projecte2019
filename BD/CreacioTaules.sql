@@ -3,7 +3,7 @@ CREATE TABLE `adreca` (
   `carrer` varchar(50) NOT NULL,
   `num` int(11) NOT NULL,
   `localitat` varchar(50) NOT NULL,
-  `cp` int(11) NOT NULL,
+  `cp` varchar(11) NOT NULL,
   `provincia` varchar(50) NOT NULL,
   `direccio` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
@@ -38,6 +38,7 @@ CREATE TABLE `negoci` (
   `NifCif` varchar(50) NOT NULL,
   `nomComercial` varchar(50) NOT NULL,
   `idAdreca` int(11) NOT NULL,
+  `baixa` int(11) NOT NULL,
   PRIMARY KEY (`idUsuari`),
   CONSTRAINT `fk_negoci_adreca` FOREIGN KEY (`idAdreca`) 
     REFERENCES `adreca` (`id`),

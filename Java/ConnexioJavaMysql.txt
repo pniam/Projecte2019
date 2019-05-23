@@ -1,0 +1,7 @@
+iniciar servei:
+cmd:
+	mysql -u root -p
+	pass == informatica
+	create user userProjecte@'%' identified by 'userProjecte';
+	create database projectedb;
+	grant all privileges on projectedb.* to userProjecte@'%';
