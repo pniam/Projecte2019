@@ -5,6 +5,10 @@
  */
 package adminapp;
 
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Usuari
@@ -19,9 +23,15 @@ public class Usuari {
     }
 
     public Usuari(String mail, String password) {
-        setMail(mail);
-        setPassword(password);
-        this.rol = 2;
+        try {
+            setMail(mail);
+            Cheats.convertToMD5(password);
+            setPassword(Cheats.convertToMD5(password));
+            
+            this.rol = 2;
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public String getMail() {

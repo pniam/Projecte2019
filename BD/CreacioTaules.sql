@@ -40,6 +40,8 @@ CREATE TABLE `negoci` (
   `idAdreca` int(11) NOT NULL,
   `baixa` int(11) NOT NULL,
   PRIMARY KEY (`idUsuari`),
+  CONSTRAINT uc_nif_nomComercial UNIQUE(`NifCif`,`nomComercial`),
+  CONSTRAINT uc_adreca UNIQUE(`idAdreca`),
   CONSTRAINT `fk_negoci_adreca` FOREIGN KEY (`idAdreca`) 
     REFERENCES `adreca` (`id`),
   CONSTRAINT `fk_negoci_usuari` FOREIGN KEY (`idUsuari`) 

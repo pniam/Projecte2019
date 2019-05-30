@@ -12,8 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -30,10 +28,10 @@ public class ConnexioMySql {
         Connection aux=null;
         try {
             aux = null;
-            String url = "jdbc:mysql://10.133.0.156:3306/projectedb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-            aux = DriverManager.getConnection(url, "userProjecte", "userProjecte");
+            String url = "jdbc:mysql://127.0.0.1:3306/projectedb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            aux = DriverManager.getConnection(url, "perProjecte", "perProjecte");
             return aux;
-        }catch(Exception ex){
+        }catch(SQLException ex){
             if (aux != null) {
                 try {
                     aux.close();
@@ -61,6 +59,53 @@ public class ConnexioMySql {
         }
     }
     
+    public Boolean teCates(int idEmp){
+        con=obraConnexio();
+        ResultSet rs = null;
+        PreparedStatement pst = null;
+        Boolean ente = false;
+        try{
+            pst = con.prepareStatement("select * from cates where idNegoci = ?;");
+            pst.setInt(1, idEmp);
+            rs = pst.executeQuery();
+            if(rs.next()){
+                ente = true;
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally {
+            try {
+                if (rs != null){
+                    rs.close();
+                }
+                if (pst != null){
+                    pst.close();
+                }            
+                if (con != null){
+                    con.close();
+                }            
+            }catch(SQLException ex){
+                System.out.println(ex.getMessage());
+            }
+        }
+        return ente;
+    }
+    public String getPassword(String user){
+        con=obraConnexio();
+        Statement st;
+        String trobat = null;
+        try {
+            st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT password from usuari where mail = '"+user+"'");
+            if (rs.next()) {
+                trobat = rs.getString(1);
+            }
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return trobat;
+    }
     public Boolean checkadmin(String user,String pass){
         con=obraConnexio();
         Statement st;
@@ -125,6 +170,20 @@ public class ConnexioMySql {
             System.out.println(ex.getMessage());
         }
     }
+    public void eliminaEmpresa(int idEmpresa){
+        con=obraConnexio();
+        String query = "delete from usuari where id = ?";
+        PreparedStatement preparedStmt;
+        try {
+            preparedStmt = con.prepareStatement(query);
+            preparedStmt.setInt(1, idEmpresa);
+            preparedStmt.execute();
+            con.commit();
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     public void delUsuari(int id){
         con=obraConnexio();
         String query = "delete from usuari where id = ?";
@@ -138,6 +197,41 @@ public class ConnexioMySql {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    public ArrayList<CataFinalitzada> getCatesTancades(int id){
+        con=obraConnexio();
+        ResultSet rs = null;
+        PreparedStatement pst = null;
+        ArrayList<CataFinalitzada> list = null;
+        try{
+            pst = con.prepareStatement("select p.nom, avg(pa.valoracio) as valoracio from participacio pa right outer join cates c on (c.id = pa.idCata) join producte p on (p.id = c.idProducte) where c.dataEvent < now() and c.idNegoci = ? group by pa.idCata;");
+            pst.setInt(1, id);
+            rs = pst.executeQuery();
+            list= new ArrayList<CataFinalitzada>();
+            CataFinalitzada e;
+            while (rs.next()) {
+                Double valo = rs.getDouble(2);
+                e = new CataFinalitzada(rs.getString(1), valo);
+                list.add(e);            
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }finally {
+            try {
+                if (rs != null){
+                    rs.close();
+                }
+                if (pst != null){
+                    pst.close();
+                }            
+                if (con != null){
+                    con.close();
+                }            
+            }catch(SQLException ex){
+                System.out.println(ex.getMessage());
+            }
+        }
+        return list;
     }
     // jtfef1; Nom Comercial
     // jtfef2; Nif/Cif
@@ -154,9 +248,10 @@ public class ConnexioMySql {
             list= new ArrayList<Empresa>();
             Empresa e;
             while (rs.next()) {
-                e = new Empresa(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+                e = new Empresa(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
                 list.add(e);            
             }
+            
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
         }finally {
@@ -187,7 +282,7 @@ public class ConnexioMySql {
             list= new ArrayList<Empresa>();
             Empresa e;
             while (rs.next()) {
-                e = new Empresa(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
+                e = new Empresa(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
                 list.add(e);            
             }   
         }catch(SQLException ex){
@@ -277,6 +372,25 @@ public class ConnexioMySql {
         return id;
     }
     
+    public Boolean baixaEmpresa(int idEmpresa){
+        con = obraConnexio();
+        Boolean modificat = false;
+        try {
+            con.setAutoCommit(false);
+            String s2 = "update negoci set baixa = 1"
+                    + " where idUsuari = ?";
+            PreparedStatement st = con.prepareStatement(s2);
+            st = con.prepareStatement(s2);
+            st.setInt(1,idEmpresa);
+            st.executeUpdate();
+            con.commit();
+            modificat = true;
+            con.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return modificat;
+    }
     public Boolean modificaEmpresa(int id, String nif, String nom, int baixa){
         con = obraConnexio();
         Boolean modificat = false;
@@ -291,7 +405,6 @@ public class ConnexioMySql {
             st.setInt(3,baixa);
             st.setInt(4,id);
             st.executeUpdate();
-            System.out.println("S'ha modificat les dades del negoci");
             con.commit();
             modificat = true;
             con.close();
@@ -313,7 +426,6 @@ public class ConnexioMySql {
             st.setString(2,u.getPassword());
             st.setInt(3,u.getRol());
             st.executeUpdate();
-            System.out.println("S'ha inserit l'usuari");
             con.commit();
             inserit = true;
             con.close();
@@ -338,7 +450,6 @@ public class ConnexioMySql {
             st.setInt(4,e.getIdAdreca());
             st.setInt(5,e.getBaixa());
             st.executeUpdate();
-            System.out.println("S'ha inserit el negoci");
             con.commit();
             inserit = true;
             con.close();
@@ -364,7 +475,6 @@ public class ConnexioMySql {
             st.setString(5,a.getProvincia());
             st.setString(6,a.getDireccio());
             st.executeUpdate();
-            System.out.println("S'ha inserit la adreca");
             con.commit();
             inserit = true;
             con.close();

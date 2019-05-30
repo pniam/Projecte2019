@@ -15,22 +15,19 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Cheats {
     
-    public static String convertToMD5(String input) throws Exception {
-        String md5 = null;
-        if (null == input)
-            return null;
-        try {
-            // Create MessageDigest object for MD5
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            // Update input string in message digest
-            digest.update(input.getBytes(), 0, input.length());
-            // Converts message digest value in base 16 (hex)
-            md5 = new BigInteger(1, digest.digest()).toString(16);
-        } catch (NoSuchAlgorithmException e) {
-            throw e;
+    public static String convertToMD5(String input) throws NoSuchAlgorithmException {
+    String result = input;
+    if(input != null) {
+        MessageDigest md = MessageDigest.getInstance("MD5"); //or "SHA-1"
+        md.update(input.getBytes());
+        BigInteger hash = new BigInteger(1, md.digest());
+        result = hash.toString(16);
+        while(result.length() < 32) { //40 for SHA-1
+            result = "0" + result;
         }
-        return md5;
     }
+    return result;
+}
     
     public static boolean matching(String orig, String compare){
         String md5 = null;
