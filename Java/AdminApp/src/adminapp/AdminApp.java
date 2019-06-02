@@ -317,7 +317,12 @@ public class AdminApp {
             public void keyTyped(KeyEvent e) {}
         });
         jtfaa4.addKeyListener(new KeyListener() {
-            public void keyPressed(KeyEvent e) {}
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()<48 || e.getKeyCode()>57){
+                    JOptionPane.showMessageDialog(f2, "caracter no admes en el Codi Postal");
+                    jtfaa4.setText("");
+                }
+            }
             public void keyReleased(KeyEvent e) { 
                 jtfaa6.setText(jtfaa1.getText()+", "+jtfaa2.getText()+", "+jtfaa4.getText()+" "+jtfaa3.getText()+", "+jtfaa5.getText());
             }

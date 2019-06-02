@@ -28,8 +28,8 @@ public class ConnexioMySql {
         Connection aux=null;
         try {
             aux = null;
-            String url = "jdbc:mysql://127.0.0.1:3306/projectedb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-            aux = DriverManager.getConnection(url, "perProjecte", "perProjecte");
+            String url = "jdbc:mysql://92.222.27.83:3306/w2_pninot?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            aux = DriverManager.getConnection(url, "w2-pninot", "47112432Z");
             return aux;
         }catch(SQLException ex){
             if (aux != null) {
@@ -204,7 +204,7 @@ public class ConnexioMySql {
         PreparedStatement pst = null;
         ArrayList<CataFinalitzada> list = null;
         try{
-            pst = con.prepareStatement("select p.nom, avg(pa.valoracio) as valoracio from participacio pa right outer join cates c on (c.id = pa.idCata) join producte p on (p.id = c.idProducte) where c.dataEvent < now() and c.idNegoci = ? group by pa.idCata;");
+            pst = con.prepareStatement("select p.nom, avg(pa.valoracio) as valoracio, pa.idCata from participacio pa right outer join cates c on (c.id = pa.idCata) join producte p on (p.id = c.idProducte) where c.dataEvent < now() and c.idNegoci = ? group by p.nom,pa.idCata;");
             pst.setInt(1, id);
             rs = pst.executeQuery();
             list= new ArrayList<CataFinalitzada>();

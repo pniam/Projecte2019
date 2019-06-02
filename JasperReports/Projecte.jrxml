@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projecteReport" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="95fdcd35-ccb8-4dbb-ab5e-77d2c53e0652">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prova001" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="95fdcd35-ccb8-4dbb-ab5e-77d2c53e0652">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<style name="Heading 3" fontSize="14" isBold="true"/>
-	<style name="Heading" fontSize="14"/>
 	<parameter name="idEmpresa" class="java.util.Collection">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -54,25 +52,25 @@ order by u.id;]]>
 					<textFieldExpression><![CDATA[$F{NOMEMPRESA}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="439089de-7510-4cce-b24d-c2b76ec26809" x="240" y="30" width="151" height="20"/>
+					<reportElement uuid="439089de-7510-4cce-b24d-c2b76ec26809" x="240" y="30" width="100" height="20"/>
 					<textElement/>
 					<textFieldExpression><![CDATA[$F{DIRECCIO}]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement uuid="2414cfbc-3365-4390-b0c0-d7245922fff4" x="37" y="84" width="749" height="1"/>
+					<reportElement uuid="2414cfbc-3365-4390-b0c0-d7245922fff4" x="26" y="86" width="749" height="1"/>
 				</line>
 				<staticText>
-					<reportElement uuid="38876d6f-d1e3-4487-b933-6d2fed76ac9a" style="Heading" x="340" y="58" width="100" height="20"/>
+					<reportElement uuid="38876d6f-d1e3-4487-b933-6d2fed76ac9a" x="340" y="64" width="100" height="20"/>
 					<textElement/>
 					<text><![CDATA[DATAEVENT]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="4319891d-a023-4ac2-9d01-a35a51f7f2d9" style="Heading" x="118" y="57" width="100" height="20"/>
+					<reportElement uuid="4319891d-a023-4ac2-9d01-a35a51f7f2d9" x="118" y="64" width="100" height="20"/>
 					<textElement/>
 					<text><![CDATA[PRODUCTE]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="7280ec60-b7eb-426e-9e2d-3858be7558ac" style="Heading" x="538" y="56" width="100" height="20"/>
+					<reportElement uuid="7280ec60-b7eb-426e-9e2d-3858be7558ac" x="538" y="64" width="100" height="20"/>
 					<textElement/>
 					<text><![CDATA[Mitja]]></text>
 				</staticText>
@@ -95,7 +93,7 @@ order by u.id;]]>
 		<band height="33" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="72" splitType="Stretch">
+		<band height="23" splitType="Stretch">
 			<textField>
 				<reportElement uuid="109729c8-c1c3-42aa-a2be-f3bd684983de" x="118" y="0" width="100" height="20"/>
 				<textElement/>
@@ -111,9 +109,6 @@ order by u.id;]]>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{Mitja}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement uuid="b1265ff6-f88c-4b39-838e-64f1c3bc2770" x="491" y="10" width="1" height="38"/>
-			</line>
 		</band>
 	</detail>
 	<columnFooter>
