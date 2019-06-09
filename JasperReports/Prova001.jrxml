@@ -177,7 +177,7 @@ order by u.id;]]>
 				</graphicElement>
 			</line>
 			<image>
-				<reportElement uuid="0dcb9404-f54a-4252-9bf5-121270839d12" x="249" y="0" width="45" height="47"/>
+				<reportElement uuid="0dcb9404-f54a-4252-9bf5-121270839d12" x="244" y="0" width="45" height="47"/>
 				<imageExpression><![CDATA["logotip"]]></imageExpression>
 			</image>
 		</band>
